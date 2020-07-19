@@ -1,0 +1,18 @@
+include utils/index.pug
+
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    block title
+      title!=pageTitle ? pageTitle : "Document"
+    link(rel="stylesheet", href="/css/main.css")
+    link(rel="stylesheet", href="/css/forms.css")
+    link(rel="stylesheet", href="/css/product.css")
+  body
+    
+    include partials/header.pug
+    block content
+    script(src="/js/main.js")
+    block scripts

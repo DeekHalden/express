@@ -1,0 +1,17 @@
+extends ../base.pug
+block content
+  div.grid
+    each card in products
+      article.card.product-item
+        .card__header
+          .product__title!=card.title
+        .card__content
+          .product__price!=card.price
+          .product__description!=card.description
+          img.product__image(src!=card.image)
+        .card__actions
+          a.btn(href='/products/' + card.id + '/') Details
+          form(action='/cart/add/'+ card.id+'/' method='POST')
+            button.btn(type='submit') add to cart
+              
+

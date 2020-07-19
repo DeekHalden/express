@@ -1,0 +1,79 @@
+.backdrop
+header.main-header
+  button#side-menu-toggle Menu
+  nav.main-header__nav
+    ul.main-header__item-list
+
+      li.main-header__item
+        a(
+          href='/' 
+          class=setActiveLink(path , "/")
+        ) Shop
+
+      li.main-header__item
+        a(
+          href="/products/" 
+          class=setActiveLink(path , "/products/")
+        ) Products
+
+      li.main-header__item
+        a(
+          href="/cart/" 
+          class=setActiveLink(path , "/cart/")
+        ) Cart
+
+      li.main-header__item
+        a(
+          href="/orders/" 
+          class=setActiveLink(path , "/orders/")
+        ) Orders
+
+      li.main-header__item
+        a(
+          href="/admin/product/create/" 
+          class=setActiveLink(path , "/admin/product/create/")
+        ) Add Product
+
+      li.main-header__item
+        a(
+          href="/admin/product/list/" 
+          class=setActiveLink(path , "/admin/product/list/")
+        ) Admin Products
+
+nav.mobile-nav
+  ul.mobile-nav__item-list
+    li.mobile-nav__item
+        a(
+          href='/' 
+          class=setActiveLink(path , "/")
+        ) Shop
+
+    li.mobile-nav__item
+      a(
+        href="/products/" 
+        class=setActiveLink(path , "/products/")
+      ) Products
+
+    li.mobile-nav__item
+      a(
+        href="/cart/" 
+        class=setActiveLink(path , "/cart/")
+      ) Cart
+
+    li.mobile-nav__item
+      a(
+        href="/orders/" 
+        class=setActiveLink(path , "/orders/")
+      ) Orders
+
+    li.mobile-nav__item
+      a(
+        href="/admin/product/create/" 
+        class=setActiveLink(path , "/admin/product/create/")
+      ) Add Product
+
+    li.mobile-nav__item
+      a(
+        href="/admin/product/list/" 
+        class=setActiveLink(path , "/admin/product/list/")
+      ) Admin Products
