@@ -1,17 +1,16 @@
 extends ../base.pug
 block content
   div.grid
-    each card in products
+    each product in products
       article.card.product-item
         .card__header
-          .product__title!=card.title
+          .product__title!=product.title
         .card__content
-          .product__price!=card.price
-          .product__description!=card.description
-          img.product__image(src!=card.image)
+          .product__price!=product.price
+          .product__description!=product.description
+          img.product__image(src!=product.image)
         .card__actions
-          a.btn(href='/products/' + card.id + '/') Details
-          form(action='/cart/add/'+ card.id+'/' method='POST')
-            button.btn(type='submit') add to cart
+          a.btn(href='/products/' + product.id + '/') Details
+          include ./../includes/add-to-cart
               
 

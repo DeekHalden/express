@@ -20,7 +20,6 @@ exports.getProduct = async (req, res, next) => {
   const { productId } = req.params
   try {
     const product = await Product.findById(productId)
-    console.log(product)
     res.render('shop/product-detail', {
       pageTitle: `Product ${product.title}`,
       product: product
@@ -36,6 +35,12 @@ exports.getCart = async (req, res, next) => {
     pageTitle: 'Your cart page',
     path: '/cart/',
   })
+}
+
+exports.postCart = async (req, res, next) => {
+  const { id } =  req.body
+  console.log(id)
+  res.redirect('/cart/')
 }
 
 
