@@ -1,4 +1,7 @@
 const Product = require('./../models/product')
+const Cart = require('../models/cart')
+const { getById } = require('./../models/utils')
+const { append } = require('ramda')
 
 exports.getIndex = async (req, res, next) => {
   res.render('shop/index', {
@@ -31,15 +34,34 @@ exports.getProduct = async (req, res, next) => {
 }
 
 exports.getCart = async (req, res, next) => {
+  const cart = await Cart.getItems()
+  const products = await Product.fetchAll()
+
+  const cartItems = products.reduce((acc, i) => {
+    const item = getById(cart.products, i.id)
+    if (item) {
+      acc = append({ ...item, ...i }, acc)
+    }
+    return acc
+  }, [])
+
+  console.log(cartItems)
+
   res.render('shop/cart', {
     pageTitle: 'Your cart page',
     path: '/cart/',
+    products: cartItems
   })
 }
 
 exports.postCart = async (req, res, next) => {
   const { id } =  req.body
-  console.log(id)
+  try {
+    const product = await Product.findById(id)
+    Cart.addProduct(id, product.price)
+  } catch (error) {
+    console.log(error)
+  }
   res.redirect('/cart/')
 }
 
@@ -56,4 +78,9 @@ exports.getOrders = async (req, res, next) => {
     pageTitle: 'Your orders',
     path: '/orders/',
   })
+}
+
+exports.deleteCartItem = async (req, res, next) => {
+  await Cart.deleteProduct(req.params.id, req.body.price)
+  res.redirect('/cart/')
 }

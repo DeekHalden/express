@@ -1,2 +1,23 @@
 extends ../base.pug
 block content
+  main
+    if products.length
+      .grid
+        each product in products
+          article.card.product-item
+            .card__header
+              .product__title!=product.title
+            .card__content
+              .product__price!=product.price
+              .product__description!=product.description
+              .product__description!=product.qty
+              img.product__image(src!=product.image)
+            .card__actions
+              a.btn(href='/products/' + product.id + '/') Details
+              form(action='/cart/item/' + product.id + '/delete/' method='POST')
+                input(type='hidden' value!=product.price name='price')
+                button.btn(type='submit') Delete item
+    else 
+      p No Products in Cart!
+    
+  
