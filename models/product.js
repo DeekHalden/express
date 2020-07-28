@@ -1,55 +1,36 @@
-const fs = require('fs').promises
-const path = require('path')
-const { v4: uuid } = require('uuid');
-const R = require('ramda')
-
-const p = path.join(path.dirname(process.mainModule.filename), 'data', 'products.json')
-const getProductsFromFile = async () => {
-
-  try {
-    const res = await fs.readFile(p)
-    return JSON.parse(res)
-  } catch (error) {
-    console.log(error)
-    return []
-  }
-}
-
-const saveProductsToFile = async (products) => {
-  try {
-    const res = await fs.writeFile(p, JSON.stringify(products))
-    console.log(res)
-    return res
-  } catch (error) {
-    console.log(error)
-  }
-}
+const { v4: uuid } = require('uuid')
+const db = require('./../utils/database')
 
 module.exports = class Product {
-  constructor({ title, image, description, price } = {}) {
+  constructor({ title, imageUrl, description, price, id } = {}) {
     this.title = title
-    this.image = image
+    this.imageUrl = imageUrl
     this.description = description
     this.price = price
-    this.id = uuid()
+  }
+
+  static async update(data) {
+  }
+
+  static async delete(id) {
   }
 
   async save() {
     try {
-      const products = await getProductsFromFile()
-      products.push(this)
-      await saveProductsToFile(products)
-      return products
+      return db.execute(
+        'INSERT INTO products (title, price, description, imageUrl) VALUES (?, ?, ?, ?)', 
+        [this.title, this.price,  this.description, this.imageUrl]
+      )
     } catch (error) {
-      console.log(error)
-      return []
+      return {}
     }
   }
 
   static async fetchAll() {
     try {
-      return await getProductsFromFile()
-
+      const [rows] = (await db.execute('SELECT * FROM products;'))
+      console.log(rows)
+      return rows
     } catch (error) {
       console.log(error)
       return []
@@ -58,11 +39,12 @@ module.exports = class Product {
 
   static async findById(id) {
     try {
-      const products = await this.fetchAll()
-      const item = R.find(R.propEq('id', id), products)
-      return item
+      const [product] = (await db.execute('SELECT * FROM products WHERE products.id = ?;', [id]))
+      console.log(product)
+      return product
     } catch (error) {
-      console.log(error)     
+      console.log(error)
+      return []
     }
   }
 }

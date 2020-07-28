@@ -1,4 +1,18 @@
 extends ../base.pug
-
-
 block content
+  form.product-form(action='/admin/product/'+(editing ? 'edit/' : 'create/') method='POST')
+    .form-control
+      label(for='title') Title
+      input(name='title', type='text', id='title', required value!=product.title)
+    .form-control
+      label(for='image') Image url
+      input(name='imageUrl', type='text', id='image', required value!=product.imageUrl)
+    .form-control
+      label(for='price') Price
+      input(name='price', type='text', id='price', required value!=product.price)
+    .form-control
+      label(for='description') Description
+      textarea(name='description', id='description' rows='5', required )!=product.description
+    if editing
+      input(name='id' type='hidden' value!=product.id)
+    button.btn(type='submit')!=editing ? 'edit product' : 'add product'

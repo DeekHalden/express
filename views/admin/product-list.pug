@@ -3,14 +3,18 @@ block content
   div.grid
     each card in products
       article.card.product-item
-          .card__header
-            .product__title!=card.title
-          .card__content
-            .product__price!=card.price
-            .product__description!=card.description
-            img.product__image(src!=card.image)
-          form.card__actions(action='/admin/product/delete/' + card.id + '/' method='POST')
-            
-            a.btn(href='/admin/product/edit/' + card.id + '/') Edit
+        .card__header
+          .product__title!=card.title
+        .card__content
+          .product__price!=card.price
+          .product__description!=card.description
+          img.product__image(src!=card.imageUrl)
+        .card__actions
+          a.btn(href='/admin/product/edit/' + card.id + '/') Edit
+          form(action='/admin/product/delete/' + card.id + '/' method='POST')
+            input(type='hidden' name='price' value!=card.price)
             button.btn(type='submit') Delete
+              
+
+
 

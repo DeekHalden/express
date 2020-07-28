@@ -8,7 +8,7 @@ block content
         .card__content
           .product__price!=product.price
           .product__description!=product.description
-          img.product__image(src!=product.image)
+          img.product__image(src!=product.imageUrl)
         .card__actions
           a.btn(href='/products/' + product.id + '/') Details
           include ./../includes/add-to-cart
