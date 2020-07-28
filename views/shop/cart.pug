@@ -11,7 +11,7 @@ block content
               .product__price!=product.price
               .product__description!=product.description
               .product__description!=product.qty
-              img.product__image(src!=product.image)
+              img.product__image(src!=product.imageUrl)
             .card__actions
               a.btn(href='/products/' + product.id + '/') Details
               form(action='/cart/item/' + product.id + '/delete/' method='POST')

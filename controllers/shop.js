@@ -22,7 +22,7 @@ exports.getProducts = async (req, res, next) => {
 exports.getProduct = async (req, res, next) => {
   const { productId } = req.params
   try {
-    const product = await Product.findById(productId)
+    const [product] = await Product.findById(productId)
     res.render('shop/product-detail', {
       pageTitle: `Product ${product.title}`,
       product: product

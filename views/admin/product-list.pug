@@ -8,7 +8,7 @@ block content
         .card__content
           .product__price!=card.price
           .product__description!=card.description
-          img.product__image(src!=card.image)
+          img.product__image(src!=card.imageUrl)
         .card__actions
           a.btn(href='/admin/product/edit/' + card.id + '/') Edit
           form(action='/admin/product/delete/' + card.id + '/' method='POST')
